@@ -1,5 +1,6 @@
 ﻿// what?
 //nothing
+//лолик
 
 using System;
 using System.Collections.Generic;
