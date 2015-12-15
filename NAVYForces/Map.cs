@@ -14,6 +14,7 @@ namespace NAVYForces
     struct mapConnection
     {
         public int point1, point2, length;
+        private int nope;
     }
 
     struct mapPoint
