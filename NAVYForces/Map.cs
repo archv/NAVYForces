@@ -1,6 +1,4 @@
-﻿//ALALLA
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +13,7 @@ namespace NAVYForces
 
     struct mapPoint
     {
+        public string name;
         public int x, y;
     }
 
@@ -24,20 +23,21 @@ namespace NAVYForces
         List<int> GetPassengersIdsInPoint(int id);
         List<int> CalculateWay(int from, int to);
         Passenger GetPassenger(int id);
-        mapPoint GetPoint(int num);
     }
 
     class Map: iMap
     {
         private List<Taxi> taxies;
         private List<Passenger> passengers;
-        private List<List<int>> connections;
+        private List<mapConnection> connections;
+        private List<mapPoint> points;
 
         Map()
         {
             taxies = new List<Taxi>(0);
             passengers = new List<Passenger>(0);
-            connections = new List<List<int>>(0);
+            points = new List<mapPoint>(0);
+            connections = new List<mapConnection>(0);
         }
 
         public void Next()
@@ -53,11 +53,6 @@ namespace NAVYForces
         public List<int> GetPassengersIdsInPoint(int id)
         {
             return null;
-        }
-
-        public mapPoint GetPoint(int num)
-        {
-            return new mapPoint();
         }
 
         public Passenger GetPassenger(int id) 
