@@ -19,7 +19,10 @@ namespace NAVYForces
         private int destination;
         private int startPosition;
         private int position;
-        private int status; // -1-idle, 0-on street, 1-in car, 2-arrived
+        /// <summary>
+        /// -1-idle, 0-on street, 1-in car, 2-arrived
+        /// </summary>
+        private int status;
 
         Passenger(int startPosition, int destination, int status = 0)
         {

@@ -74,12 +74,12 @@ namespace NAVYForces
             if (reverse) connections[to].Add(from);
         }
 
-        int GetM()
+        public int GetM()
         {
             return m;
         }
 
-        int GetN()
+        public int GetN()
         {
             return n;
         }
