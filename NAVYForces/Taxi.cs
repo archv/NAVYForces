@@ -42,6 +42,8 @@ namespace NAVYForces
 
         private void dropOff(int id)
         {
+            pasInfo.Remove(pasInfo.Find(x => x.passengerNumber == id));
+            
             return;
         }
 
