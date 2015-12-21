@@ -16,12 +16,12 @@ namespace NAVYForces
         void Next();
     }
 
-    class Taxi: iTaxi
+    public class Taxi : iTaxi
     {
         /// <summary>
         /// 0 - free, 1 - have free seats, 2 - full
         /// </summary>
-        private int status;//in taxi we have 4 seats
+        private int status;                     //in taxi we have 4 seats
         private int speed;
         private int position;
         private List<int> way;
@@ -29,7 +29,7 @@ namespace NAVYForces
 
         Taxi(): this(0){}
 
-        Taxi( int position,int speed=60)
+        Taxi(int position, int speed=60)
         {
             this.speed = speed;
             this.position = position;
@@ -40,10 +40,15 @@ namespace NAVYForces
 
         private void pickup(int id)
         {
-            if (CanPickUp())
+            if (canPickUp())
             {
-                //getin passenger from list in map and adding to pasinfo new PassengerInfo(how to realize?will see soon)
+                PassengerInfo info;
+                Passenger passenger = Program.FController.GetPassenger(id);
+                info.destination = passenger.GetDestination();
+                info.passengerNumber = id;
+                pasInfo.Add(info);
             }
+
             switch (pasInfo.Count)
             {
                 case 4:
@@ -58,9 +63,8 @@ namespace NAVYForces
             return;
         }
 
-
-
-        private bool CanPickUp()
+        // Зачем?
+        private bool canPickUp()
         {
             if (status < 2) return true;
             return false;
