@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace NAVYForces
 {
-    struct PassengerInfo
+    static class Constants
     {
-        public int destination, passengerNumber;
+        public const double MAXPASSENGERS = 4;          
+    }
+
+    class PassengerInfo
+    {
+        public int destination, id;
+        public PassengerInfo(int dest, int id) { destination = dest; this.id = id; }
     }
 
     interface iTaxi
@@ -17,84 +23,52 @@ namespace NAVYForces
     }
 
     public class Taxi : iTaxi
-    {
-        /// <summary>
-        /// 0 - free, 1 - have free seats, 2 - full
-        /// </summary>
-        private int status;                     //in taxi we have 4 seats
+    {             
         private int speed;
         private int position;
         private List<int> way;
         private List<PassengerInfo> pasInfo;
 
-        Taxi(): this(0){}
+        public Taxi() : this(0) { }
 
-        Taxi(int position, int speed=60)
+        public Taxi(int position, int speed = 60)
         {
             this.speed = speed;
             this.position = position;
             way = new List<int>(0);
             pasInfo = new List<PassengerInfo>(0);
-            status = 0;
         }
 
-        private void pickup(int id)
+        private void pickup(int id)              // id from Map array
         {
-            if (canPickUp())
-            {
-                PassengerInfo info;
-                Passenger passenger = Program.FController.GetPassenger(id);
-                info.destination = passenger.GetDestination();
-                info.passengerNumber = id;
-                pasInfo.Add(info);
-            }
-
-            switch (pasInfo.Count)
-            {
-                case 4:
-                    status = 2;
-                    break;
-                default:
-                    status = 1;
-                    break;
-
-            } 
-            Next();
-            return;
+            pasInfo.Add(new PassengerInfo(Program.FController.GetPassenger(id).Destination,id));
+            Program.FController.GetPassenger(id).Status = PassengerStatus.InCar;
         }
 
-        // Зачем?
-        private bool canPickUp()
+        private void dropOff(int id)            // id from pasInfo array
         {
-            if (status < 2) return true;
-            return false;
+            Program.FController.GetPassenger(pasInfo[id].id).Status = PassengerStatus.Arrived;
+            pasInfo.RemoveAt(id);
         }
 
-
-        private void dropOff(int id)
-        {
-            pasInfo.Remove(pasInfo.Find(x => x.passengerNumber == id));
-            //deleting from list in map
-
-            switch (pasInfo.Count)
-            {
-                case 0:
-                    status = 0;
-                    break;
-                default:
-                    status = 1;
-                    break;
-            } 
-            Next();
-            return;
-        }
-
-        //move to next position
+        // Move to the next position
         public void Next()
         {
+                // checking position
             if(position!=way.Last())
                 position = way[way.Find(x => x == position) + 1];
-            return;
+
+                // drop off arrived passengers
+            for (int i = 0; i < pasInfo.Count; i++) if (pasInfo[i].destination == position) dropOff(i);
+
+                // puckup if avaliable
+            if (pasInfo.Count < Constants.MAXPASSENGERS)
+            {
+                List<int> avaliablePass = Program.FController.GetPassengersIdsInPoint(position);
+                for (int i = 0; i < avaliablePass.Count; i++)
+                    if (Program.FController.GetPassenger(avaliablePass[i]).Status == PassengerStatus.OnStreet)
+                        pickup(avaliablePass[i]);
+            }
         }
     }
 }
