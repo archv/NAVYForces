@@ -8,38 +8,30 @@ namespace NAVYForces
 {
     interface iPassenger
     {
-        void SetStatus(int value);
-        int GetStatus();
-        int GetDestination();
-        int GetPosition();
+        PassengerStatus Status { get; set; }
+        int Destination { get; }
+        int Position { get; }
     }
+
+    public enum PassengerStatus { Idle, OnStreet, InCar, Arrived };
 
     public class Passenger : iPassenger
     {
         private int destination;
         private int startPosition;
         private int position;
-        /// <summary>
-        /// -1-idle, 0-on street, 1-in car, 2-arrived
-        /// </summary>
-        private int status;
+        private PassengerStatus status;
 
-        Passenger(int startPosition, int destination, int status = 0)
+        public Passenger(int startPosition, int destination, PassengerStatus status = PassengerStatus.OnStreet)
         {
             this.startPosition = startPosition;
             this.destination = destination;
             position = startPosition;
             this.status = status;  
-            //TODO 1
         }
 
-        public void SetStatus(int value)
-        {
-            status = value;
-        }
-
-        public int GetStatus() { return status; }
-        public int GetDestination() { return destination; }
-        public int GetPosition() { return position; }
+        public PassengerStatus Status { get { return status; } set { status = value; } }
+        public int Destination { get { return destination; } }
+        public int Position { get { return position; } }
     }
 }
