@@ -25,7 +25,7 @@ namespace NAVYForces
         private List<Taxi> taxies;
         private List<Passenger> passengers;
         private List<List<int>> connections;
-        private int m, n;                   // board size
+        private int m, n;                       // board size
 
         public Map() : this(100, 100) { }
         public Map(int m, int n)
@@ -40,7 +40,7 @@ namespace NAVYForces
 
         public void Next()
         {
-            return;
+            for (int i = 0; i < taxies.Count; i++) taxies[i].Next();
         }
 
         public List<int> CalculateWay(int from, int to)
@@ -50,7 +50,9 @@ namespace NAVYForces
 
         public List<int> GetPassengersIdsInPoint(int id)
         {
-            return null;
+            List<int> output = new List<int>(0);
+            for (int i = 0; i < passengers.Count; i++) if (passengers[i].Position == id) output.Add(i);
+            return output;
         }
 
         public Passenger GetPassenger(int id) 
