@@ -13,8 +13,8 @@ namespace NAVYForces
         List<int> CalculateWay(int from, int to);
         Passenger GetPassenger(int id);
         Taxi GetTaxi(int id);
-        void AddTaxi(iTaxi taxi);
-        void AddPassenger(iPassenger passenger);
+        void AddTaxi(Taxi taxi);
+        void AddPassenger(Passenger passenger);
         void AddConnection(int from, int to, bool reverse = true);
         int GetM();
         int GetN();
@@ -34,8 +34,8 @@ namespace NAVYForces
             passengers = new List<Passenger>(0);
             this.m=m;
             this.n=n;
-            connections = new List<List<int>>(m*n);
-            for (int i = 0; i < m * n; i++) connections[i] = new List<int>(0);
+            connections = new List<List<int>>(0);
+            for (int i = 0; i < m * n; i++) connections.Add(new List<int>(0));
         }
 
         public void Next()
@@ -58,12 +58,12 @@ namespace NAVYForces
         public Taxi GetTaxi(int id)
         { return taxies[id]; }
 
-        public void AddTaxi(iTaxi taxi)
+        public void AddTaxi(Taxi taxi)
         {
             taxies.Add((Taxi)taxi);
         }
 
-        public void AddPassenger(iPassenger passenger)
+        public void AddPassenger(Passenger passenger)
         {
             passengers.Add((Passenger)passenger);
         }

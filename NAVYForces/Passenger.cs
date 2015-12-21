@@ -14,7 +14,7 @@ namespace NAVYForces
         int GetPosition();
     }
 
-    class Passenger: iPassenger
+    public class Passenger : iPassenger
     {
         private int destination;
         private int startPosition;
