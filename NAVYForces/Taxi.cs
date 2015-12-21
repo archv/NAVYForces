@@ -49,15 +49,18 @@ namespace NAVYForces
         {
             Program.FController.GetPassenger(pasInfo[id].id).Status = PassengerStatus.Arrived;
             pasInfo.RemoveAt(id);
+
         }
 
         // Move to the next position
         public void Next()
         {
                 // checking position
-            if(position!=way.Last())
-                position = way[way.Find(x => x == position) + 1];
-
+            /*if(position!=way.Last())
+                position = way[way.Find(x => x == position) + 1];*/
+            position = way[1];
+            way.RemoveAt(0);
+            
                 // drop off arrived passengers
             for (int i = 0; i < pasInfo.Count; i++) if (pasInfo[i].destination == position) dropOff(i);
 
@@ -66,8 +69,14 @@ namespace NAVYForces
             {
                 List<int> avaliablePass = Program.FController.GetPassengersIdsInPoint(position);
                 for (int i = 0; i < avaliablePass.Count; i++)
-                    if (Program.FController.GetPassenger(avaliablePass[i]).Status == PassengerStatus.OnStreet)
+                    if (pasInfo.Count == Constants.MAXPASSENGERS) break;
+                    else if (Program.FController.GetPassenger(avaliablePass[i]).Status == PassengerStatus.OnStreet)
                         pickup(avaliablePass[i]);
+            }
+
+            if (way.Count == 1)
+            {
+                 //int p
             }
         }
     }

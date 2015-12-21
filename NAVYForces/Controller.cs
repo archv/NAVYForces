@@ -11,8 +11,10 @@ namespace NAVYForces
         void DrawMap();
         void AddTaxi(Taxi taxi);
         void AddPassenger(Passenger passenger);
+        int GetPassengerCount();
         void AddConnection(int from, int to, bool reverse = true);
         Taxi GetTaxi(int id);
+        int GetTaxiCount();
         Passenger GetPassenger(int id);
         List<int> GetPassengersIdsInPoint(int id);
     }
@@ -24,6 +26,20 @@ namespace NAVYForces
         public Controller()
         {
             map = new Map();
+
+            // Debug code! Delete!
+        /*    map.AddConnection(2, 5);
+            map.AddConnection(5, 8);
+            map.AddConnection(8, 6);
+            map.AddConnection(6, 15);
+            map.AddConnection(15, 22);
+            map.AddConnection(22, 48);
+            map.AddConnection(48, 3);
+            map.AddConnection(22, 3);
+
+            List<int> way;
+
+            map.CalculateWay(2, 3, out way);*/
         }
 
         public void DrawMap()
@@ -59,6 +75,16 @@ namespace NAVYForces
         public List<int> GetPassengersIdsInPoint(int id)
         {
             return map.GetPassengersIdsInPoint(id);
+        }
+
+        public int GetPassengerCount()
+        {
+            return map.GetPassengerCount();
+        }
+
+        public int GetTaxiCount()
+        {
+            return map.GetTaxiCount();
         }
     }
 }

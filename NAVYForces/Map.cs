@@ -10,9 +10,11 @@ namespace NAVYForces
     {
         void Next();
         List<int> GetPassengersIdsInPoint(int id);
-        List<int> CalculateWay(int from, int to);
+        bool CalculateWay(int from, int to, out List<int> way);
         Passenger GetPassenger(int id);
+        int GetPassengerCount();
         Taxi GetTaxi(int id);
+        int GetTaxiCount();
         void AddTaxi(Taxi taxi);
         void AddPassenger(Passenger passenger);
         void AddConnection(int from, int to, bool reverse = true);
@@ -43,9 +45,31 @@ namespace NAVYForces
             for (int i = 0; i < taxies.Count; i++) taxies[i].Next();
         }
 
-        public List<int> CalculateWay(int from, int to)
+        public bool CalculateWay(int from, int to, out List<int> way)
         {
-            return null;
+            way = new List<int>(0);
+            var tmp = new List<int>(0);
+            var used = new List<int>(0);
+            return recursiveCalculate(from, to, ref used, ref way);
+        }
+
+        private bool recursiveCalculate(int from, int to, ref List<int> used, ref List<int> way)
+        {
+            used.Add(from);
+            if (from == to) { way.Add(from); return true; }
+
+            if (connections[from].Count > 0)
+                for (int i = 0; i < connections[from].Count; i++)
+                {
+                    bool test = used.FindIndex(x => x == connections[from][i]) == -1;
+                    if (test && recursiveCalculate(connections[from][i], to, ref used, ref way))
+                    {
+                        way.Add(from);
+                        return true;
+                    }
+                }            
+        
+            return false;
         }
 
         public List<int> GetPassengersIdsInPoint(int id)
@@ -62,12 +86,12 @@ namespace NAVYForces
 
         public void AddTaxi(Taxi taxi)
         {
-            taxies.Add((Taxi)taxi);
+            taxies.Add(taxi);
         }
 
         public void AddPassenger(Passenger passenger)
         {
-            passengers.Add((Passenger)passenger);
+            passengers.Add(passenger);
         }
 
         public void AddConnection(int from, int to, bool reverse = true)
@@ -84,6 +108,16 @@ namespace NAVYForces
         public int GetN()
         {
             return n;
+        }
+
+        public int GetPassengerCount()
+        {
+            return passengers.Count;
+        }
+
+        public int GetTaxiCount()
+        {
+            return taxies.Count;
         }
     }
 }
