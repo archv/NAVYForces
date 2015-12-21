@@ -1,6 +1,7 @@
 ﻿//TODO:
-//1. Добавить вызов такси в конструктор пассажира
-//2. Добавить exception в get/set классов
+//1. Добавить exception в get/set классов
+//
+//* Добавить вызов такси в конструктор пассажира
 
 using System;
 using System.Collections.Generic;
