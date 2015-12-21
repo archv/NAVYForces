@@ -12,6 +12,8 @@ namespace NAVYForces
 {
     static class Program
     {
+        public static Controller FController = new Controller();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

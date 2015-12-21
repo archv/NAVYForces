@@ -9,12 +9,15 @@ namespace NAVYForces
     interface iController
     {
         void DrawMap();
-        void AddTaxi(iTaxi taxi);
-        void AddPassenger(iPassenger passenger);
+        void AddTaxi(Taxi taxi);
+        void AddPassenger(Passenger passenger);
         void AddConnection(int from, int to, bool reverse = true);
+        Taxi GetTaxi(int id);
+        Passenger GetPassenger(int id);
+        List<int> GetPassengersIdsInPoint(int id);
     }
 
-    class Controller:iController
+    public class Controller:iController
     {
         private Map map;
 
@@ -28,12 +31,12 @@ namespace NAVYForces
             
         }
 
-        public void AddTaxi(iTaxi taxi)
+        public void AddTaxi(Taxi taxi)
         {
             map.AddTaxi(taxi);
         }
 
-        public void AddPassenger(iPassenger passenger)
+        public void AddPassenger(Passenger passenger)
         {
             map.AddPassenger(passenger);
         }
@@ -41,6 +44,21 @@ namespace NAVYForces
         public void AddConnection(int from, int to, bool reverse = true)
         {
             map.AddConnection(from, to, reverse);
+        }
+
+        public Taxi GetTaxi(int id)
+        {
+            return map.GetTaxi(id);
+        }
+
+        public Passenger GetPassenger(int id)
+        {
+            return map.GetPassenger(id);
+        }
+
+        public List<int> GetPassengersIdsInPoint(int id)
+        {
+            return map.GetPassengersIdsInPoint(id);
         }
     }
 }
