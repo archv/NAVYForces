@@ -8,6 +8,7 @@ namespace NAVYForces
 {
     interface iController
     {
+        void Next();
         void DrawMap();
         void AddTaxi(Taxi taxi);
         void AddPassenger(Passenger passenger);
@@ -21,11 +22,15 @@ namespace NAVYForces
 
     public class Controller:iController
     {
+        private List<Taxi> taxies;
+        private List<Passenger> passengers;
         private Map map;
 
         public Controller()
         {
             map = new Map();
+            taxies = new List<Taxi>(0);
+            passengers = new List<Passenger>(0);
 
             // Debug code! Delete!
         /*    map.AddConnection(2, 5);
@@ -42,19 +47,14 @@ namespace NAVYForces
             map.CalculateWay(2, 3, out way);*/
         }
 
+        public void Next()
+        {
+            for (int i = 0; i < taxies.Count; i++) taxies[i].Next();
+        }
+
         public void DrawMap()
         {
             
-        }
-
-        public void AddTaxi(Taxi taxi)
-        {
-            map.AddTaxi(taxi);
-        }
-
-        public void AddPassenger(Passenger passenger)
-        {
-            map.AddPassenger(passenger);
         }
 
         public void AddConnection(int from, int to, bool reverse = true)
@@ -62,29 +62,36 @@ namespace NAVYForces
             map.AddConnection(from, to, reverse);
         }
 
-        public Taxi GetTaxi(int id)
-        {
-            return map.GetTaxi(id);
-        }
-
         public Passenger GetPassenger(int id)
+        { return passengers[id]; }
+        public Taxi GetTaxi(int id)
+        { return taxies[id]; }
+
+        public void AddTaxi(Taxi taxi)
         {
-            return map.GetPassenger(id);
+            taxies.Add(taxi);
         }
 
-        public List<int> GetPassengersIdsInPoint(int id)
+        public void AddPassenger(Passenger passenger)
         {
-            return map.GetPassengersIdsInPoint(id);
+            passengers.Add(passenger);
         }
 
         public int GetPassengerCount()
         {
-            return map.GetPassengerCount();
+            return passengers.Count;
         }
 
         public int GetTaxiCount()
         {
-            return map.GetTaxiCount();
+            return taxies.Count;
+        }
+
+        public List<int> GetPassengersIdsInPoint(int id)
+        {
+            List<int> output = new List<int>(0);
+            for (int i = 0; i < passengers.Count; i++) if (passengers[i].Position == id) output.Add(i);
+            return output;
         }
     }
 }
