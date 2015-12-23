@@ -12,7 +12,10 @@ namespace NAVYForces
 {
     public partial class Form1 : Form
     {
+        public static PictureBox pic;
         Controller Controller = new Controller();
+        Bitmap screen = new Bitmap("Screen.png");
+        Graphics graph;
         public Form1()
         {
             InitializeComponent();
@@ -20,13 +23,17 @@ namespace NAVYForces
 
         private void DrawMapButton_Click(object sender, EventArgs e)
         {
-            Controller.DrawMap();
+            Graphics.FromImage(screen).Clear(Color.White);
+            Controller.DrawMap(screen, graph);
+            pictureBox1.Refresh();
         }
 
-        private void ShowPanelButton_Click(object sender, EventArgs e)
+
+        private void Form1_Load(object sender, EventArgs e)
         {
-            panel1.Visible = !panel1.Visible;
-            
+            pictureBox1.Image = screen;
+            graph = Graphics.FromImage(screen);
+            pic = this.pictureBox1;
         }
     }
 }

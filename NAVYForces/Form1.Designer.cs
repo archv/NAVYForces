@@ -34,8 +34,9 @@
             this.labelPassngrs = new System.Windows.Forms.Label();
             this.labelTaxi = new System.Windows.Forms.Label();
             this.DrawMapButton = new System.Windows.Forms.Button();
-            this.ShowPanelButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -46,11 +47,10 @@
             this.panel1.Controls.Add(this.listBoxTaxi);
             this.panel1.Controls.Add(this.labelPassngrs);
             this.panel1.Controls.Add(this.labelTaxi);
-            this.panel1.Location = new System.Drawing.Point(513, 13);
+            this.panel1.Location = new System.Drawing.Point(562, 13);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(270, 320);
             this.panel1.TabIndex = 0;
-            this.panel1.Visible = false;
             // 
             // listBoxPassngrs
             // 
@@ -89,7 +89,7 @@
             // DrawMapButton
             // 
             this.DrawMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DrawMapButton.Location = new System.Drawing.Point(619, 373);
+            this.DrawMapButton.Location = new System.Drawing.Point(757, 486);
             this.DrawMapButton.Name = "DrawMapButton";
             this.DrawMapButton.Size = new System.Drawing.Size(75, 23);
             this.DrawMapButton.TabIndex = 1;
@@ -97,30 +97,35 @@
             this.DrawMapButton.UseVisualStyleBackColor = true;
             this.DrawMapButton.Click += new System.EventHandler(this.DrawMapButton_Click);
             // 
-            // ShowPanelButton
+            // pictureBox1
             // 
-            this.ShowPanelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ShowPanelButton.Location = new System.Drawing.Point(708, 373);
-            this.ShowPanelButton.Name = "ShowPanelButton";
-            this.ShowPanelButton.Size = new System.Drawing.Size(75, 23);
-            this.ShowPanelButton.TabIndex = 2;
-            this.ShowPanelButton.Text = "ShowPanel";
-            this.ShowPanelButton.UseVisualStyleBackColor = true;
-            this.ShowPanelButton.Click += new System.EventHandler(this.ShowPanelButton_Click);
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Location = new System.Drawing.Point(13, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(543, 496);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(795, 408);
-            this.Controls.Add(this.ShowPanelButton);
+            this.BackColor = System.Drawing.Color.Silver;
+            this.ClientSize = new System.Drawing.Size(844, 521);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.DrawMapButton);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -133,8 +138,7 @@
         private System.Windows.Forms.Label labelPassngrs;
         private System.Windows.Forms.Label labelTaxi;
         private System.Windows.Forms.Button DrawMapButton;
-        private System.Windows.Forms.Button ShowPanelButton;
-
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

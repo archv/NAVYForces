@@ -11,7 +11,7 @@ namespace NAVYForces
     interface iController
     {
         void Next();
-        void DrawMap();
+        void DrawMap(Bitmap screen, Graphics graf);
         void AddTaxi(Taxi taxi);
         void AddPassenger(Passenger passenger);
         int GetPassengerCount();
@@ -34,7 +34,6 @@ namespace NAVYForces
             map = new Map();
             taxies = new List<Taxi>(0);
             passengers = new List<Passenger>(0);
-            
             // Debug code! Delete!
         /*    map.AddConnection(2, 5);
             map.AddConnection(5, 8);
@@ -55,20 +54,20 @@ namespace NAVYForces
             for (int i = 0; i < taxies.Count; i++) taxies[i].Next();
         }
 
-        public void DrawMap()
+        public void DrawMap(Bitmap screen, Graphics graf)
         {
             int m = map.M;
             int n = map.N;
             float width, height;
-
+            
             if (m <= n)
             {
-                width = Form1.ActiveForm.Size.Width / (3 * m);
+                width = Form1.ActiveForm.Size.Width / (3 * n);                
                 height = width;
             }
             else
             {
-                width = Form1.ActiveForm.Size.Width / (3 * n);
+                width = Form1.ActiveForm.Size.Width / (3 * m);
                 height = width;
             }
                 
@@ -80,15 +79,13 @@ namespace NAVYForces
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    //gr.DrawEllipse(pene, 10 + i*Form1.ActiveForm.Width / (n+2), 10 + j*Form1.ActiveForm.Height / m, width, height);
-                    gr.DrawEllipse(pene, 10 + i * 10, 10 + j * 10, 7, 7);
-
+                    graf.DrawEllipse(pene, 10 + i * Form1.pic.Width / (n+2), 10 + j * Form1.pic.Height / (m+2), width, height);
                     for (int k = 0; k < GetPassengerCount(); k++)
                     {
                         if (passengers[k].Position == j * m + i)
-                            gr.DrawRectangle(penr, i * Form1.ActiveForm.Width / n, j * Form1.ActiveForm.Height / m, width/3, height/3);
+                            graf.DrawRectangle(penr, 10 + i * Form1.pic.Width / (n + 10), 10 + j * Form1.pic.Height / (m + 10), width / 2, height / 2);
                     }
-                }
+                }         
         }
 
         public void AddConnection(int from, int to, bool reverse = true)
