@@ -16,10 +16,12 @@ namespace NAVYForces
         void AddPassenger(Passenger passenger);
         int GetPassengerCount();
         void AddConnection(int from, int to, bool reverse = true);
+        bool CalculateWay(int from, int to, out List<int> way);
         Taxi GetTaxi(int id);
         int GetTaxiCount();
         Passenger GetPassenger(int id);
         List<int> GetPassengersIdsInPoint(int id);
+        List<int> GetWayToClosestPass(int point);
     }
 
     public class Controller:iController
@@ -116,6 +118,24 @@ namespace NAVYForces
             List<int> output = new List<int>(0);
             for (int i = 0; i < passengers.Count; i++) if (passengers[i].Position == id) output.Add(i);
             return output;
+        }
+
+        public List<int> GetWayToClosestPass(int point)
+        {
+            List<int> output = new List<int>(0);
+            var tmp = new List<int>(0);
+
+            for (int i = 0; i < passengers.Count; i++) 
+                if (passengers[i].Status==PassengerStatus.OnStreet&&
+                    map.CalculateWay(point, passengers[i].Position, out tmp) && 
+                    (tmp.Count < output.Count || output.Count==0)) output = tmp;
+
+            return output;
+        }
+
+        public bool CalculateWay(int from, int to, out List<int> way)
+        {
+            return map.CalculateWay(from, to, out way);
         }
     }
 }

@@ -49,15 +49,11 @@ namespace NAVYForces
         {
             Program.FController.GetPassenger(pasInfo[id].id).Status = PassengerStatus.Arrived;
             pasInfo.RemoveAt(id);
-
         }
 
         // Move to the next position
         public void Next()
         {
-                // checking position
-            /*if(position!=way.Last())
-                position = way[way.Find(x => x == position) + 1];*/
             position = way[1];
             way.RemoveAt(0);
             
@@ -74,10 +70,10 @@ namespace NAVYForces
                         pickup(avaliablePass[i]);
             }
 
+            if (pasInfo.Count > 0) Program.FController.CalculateWay(position, pasInfo[0].destination, out way);
+
             if (way.Count == 1)
-            {
-                 //int p
-            }
+                way = Program.FController.GetWayToClosestPass(position);
         }
     }
 }
