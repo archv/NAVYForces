@@ -74,12 +74,20 @@ namespace NAVYForces
                 
 
             var gr = Form1.ActiveForm.CreateGraphics();
-            Pen pen = new Pen(Color.Black, 1);
+            Pen pene = new Pen(Color.Black, 1);
+            Pen penr = new Pen(Color.Green, 1);
 
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    gr.DrawEllipse(pen, i*Form1.ActiveForm.Width / n, j*Form1.ActiveForm.Height / m, width, height);
+                    //gr.DrawEllipse(pene, 10 + i*Form1.ActiveForm.Width / (n+2), 10 + j*Form1.ActiveForm.Height / m, width, height);
+                    gr.DrawEllipse(pene, 10 + i * 10, 10 + j * 10, 7, 7);
+
+                    for (int k = 0; k < GetPassengerCount(); k++)
+                    {
+                        if (passengers[k].Position == j * m + i)
+                            gr.DrawRectangle(penr, i * Form1.ActiveForm.Width / n, j * Form1.ActiveForm.Height / m, width/3, height/3);
+                    }
                 }
         }
 

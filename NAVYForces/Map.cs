@@ -20,7 +20,7 @@ namespace NAVYForces
         private List<List<int>> connections;
         private int m, n;                       // board size
 
-        public Map() : this(20, 20) { }
+        public Map() : this(100, 100) { }
         public Map(int m, int n)
         {
             this.m=m;
