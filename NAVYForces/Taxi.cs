@@ -20,6 +20,7 @@ namespace NAVYForces
     interface iTaxi
     {
         void Next();
+        int Position { get; }
     }
 
     public class Taxi : iTaxi
@@ -38,7 +39,7 @@ namespace NAVYForces
             way = new List<int>(0);
             pasInfo = new List<PassengerInfo>(0);
         }
-
+        public int Position { get { return position; } }
         private void pickup(int id)              // id from Map array
         {
             pasInfo.Add(new PassengerInfo(Program.FController.GetPassenger(id).Destination,id));
