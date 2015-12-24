@@ -36,6 +36,8 @@
             this.DrawMapButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Nexybutt = new System.Windows.Forms.Button();
+            this.AddPassBtn = new System.Windows.Forms.Button();
+            this.SelectedPtLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -44,6 +46,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.LightGray;
+            this.panel1.Controls.Add(this.SelectedPtLabel);
             this.panel1.Controls.Add(this.listBoxPassngrs);
             this.panel1.Controls.Add(this.listBoxTaxi);
             this.panel1.Controls.Add(this.labelPassngrs);
@@ -109,6 +112,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(543, 496);
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // Nexybutt
             // 
@@ -121,12 +125,33 @@
             this.Nexybutt.UseVisualStyleBackColor = true;
             this.Nexybutt.Click += new System.EventHandler(this.Nexybutt_Click);
             // 
+            // AddPassBtn
+            // 
+            this.AddPassBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddPassBtn.Location = new System.Drawing.Point(656, 486);
+            this.AddPassBtn.Name = "AddPassBtn";
+            this.AddPassBtn.Size = new System.Drawing.Size(95, 23);
+            this.AddPassBtn.TabIndex = 5;
+            this.AddPassBtn.Text = "Add passenger";
+            this.AddPassBtn.UseVisualStyleBackColor = true;
+            this.AddPassBtn.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // SelectedPtLabel
+            // 
+            this.SelectedPtLabel.AutoSize = true;
+            this.SelectedPtLabel.Location = new System.Drawing.Point(9, 8);
+            this.SelectedPtLabel.Name = "SelectedPtLabel";
+            this.SelectedPtLabel.Size = new System.Drawing.Size(99, 13);
+            this.SelectedPtLabel.TabIndex = 4;
+            this.SelectedPtLabel.Text = "Точка не выбрана";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(844, 521);
+            this.Controls.Add(this.AddPassBtn);
             this.Controls.Add(this.Nexybutt);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.DrawMapButton);
@@ -154,6 +179,8 @@
         private System.Windows.Forms.Button DrawMapButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button Nexybutt;
+        private System.Windows.Forms.Button AddPassBtn;
+        private System.Windows.Forms.Label SelectedPtLabel;
     }
 }
 

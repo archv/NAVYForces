@@ -22,6 +22,8 @@ namespace NAVYForces
         Passenger GetPassenger(int id);
         List<int> GetPassengersIdsInPoint(int id);
         List<int> GetWayToClosestPass(int point);
+        int M { get; }
+        int N { get; }
     }
 
     public class Controller:iController
@@ -35,23 +37,41 @@ namespace NAVYForces
             map = new Map();
             taxies = new List<Taxi>(0);
             passengers = new List<Passenger>(0);
-            map.AddConnection(5, 8);
-            passengers.Add(new Passenger(45, 215));
+
+            // Map structure:
+
+            map.AddConnection(4, 5);
+            map.AddConnection(5, 25);
+            map.AddConnection(25, 45);
+            map.AddConnection(25, 46);
+            map.AddConnection(46, 45);
+            map.AddConnection(46, 47);
+            map.AddConnection(46, 66);
+            map.AddConnection(66, 86);
+            map.AddConnection(86, 87);
+            map.AddConnection(87, 88);
+            map.AddConnection(88, 89);
+            map.AddConnection(89, 90);
+            map.AddConnection(90, 91);
+            map.AddConnection(91, 92);
+            map.AddConnection(92, 93);
+            map.AddConnection(93, 113);
+            map.AddConnection(113, 114);
+
+            map.AddConnection(114, 134);
+            map.AddConnection(134, 154);
+            map.AddConnection(154, 174);
+            map.AddConnection(174, 194);
+            map.AddConnection(194, 195);
+            map.AddConnection(195, 196);
+
+            passengers.Add(new Passenger(45, 5));
+            passengers.Add(new Passenger(114, 5));
+            passengers.Add(new Passenger(196, 25));
+            passengers.Add(new Passenger(25, 114));
+
             taxies.Add(new Taxi(4));
-            //map.AddConnection(8, 115);
-            // Debug code! Delete!
-        /*    map.AddConnection(2, 5);
-            map.AddConnection(5, 8);
-            map.AddConnection(8, 6);
-            map.AddConnection(6, 15);
-            map.AddConnection(15, 22);
-            map.AddConnection(22, 48);
-            map.AddConnection(48, 3);
-            map.AddConnection(22, 3);
-
-            List<int> way;
-
-            map.CalculateWay(2, 3, out way);*/
+            taxies.Add(new Taxi(113));
         }
 
         public void Next()
@@ -62,18 +82,7 @@ namespace NAVYForces
         {
             int m = map.M;
             int n = map.N;
-            float width, height;
-            
-            if (m <= n)
-            {
-                width = Form1.ActiveForm.Size.Width / (3 * n);                
-                height = width;
-            }
-            else
-            {
-                width = Form1.ActiveForm.Size.Width / (3 * m);
-                height = width;
-            }
+            float size = Form1.ActiveForm.Size.Width / (3 * ((m <= n)?n:m));                
                 
             Pen pene = new Pen(Color.Black, 1);
             Pen penp = new Pen(Color.Green, 1);
@@ -83,29 +92,35 @@ namespace NAVYForces
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    graf.DrawEllipse(pene, 10 + i * Form1.pic.Width / (n+2), 10 + j * Form1.pic.Height / (m+2), width, height);
                     
+                    bool present = false;
+
                     for (int k = 0; k < GetPassengerCount(); k++)
-                    {
-
                         if (passengers[k].Position == j * m + i)
-                            graf.DrawRectangle(penp, 10 + width/3+ i * Form1.pic.Width / (n + 2), 
-                                                     10+width/3 + j * Form1.pic.Height / (m + 2), width / 3, height / 3);
-                    }
+                        {
+                            graf.DrawRectangle(penp, 10 + size / 3 + i * Form1.pic.Width / (n + 2),
+                                                     10 + size / 3 + j * Form1.pic.Height / (m + 2), size / 3, size / 3);
+                            present = true;
+                        }
+                    
                     for (int t = 0; t < GetTaxiCount(); t++)
-                    {
-
-                        if ( taxies[t].Position == j * m + i)
-                            graf.DrawRectangle(pent, 10 + width / 4 + i * Form1.pic.Width / (n + 2),
-                                                     10 + width / 4 + j * Form1.pic.Height / (m + 2), width / 2, height / 2);
-                    }
+                        if (taxies[t].Position == j * m + i)
+                        {
+                            graf.DrawRectangle(pent, 10 + size / 4 + i * Form1.pic.Width / (n + 2),
+                                                     10 + size / 4 + j * Form1.pic.Height / (m + 2), size / 2, size / 2);
+                            present = true;
+                        }
+                    
                     for (int c = 0; c < map.Connections[j*m+i].Count; c++)
                     {
                         int tmpX,tmpY;
                         PointOneToTwo(map.Connections[j * m + i][c], out tmpX, out tmpY);
-                        graf.DrawLine(pene, 10 + width / 2 + i * Form1.pic.Width / (n + 2), 10 + width / 2 + j * Form1.pic.Height / (m + 2),
-                                            10 + width / 2 + tmpX * Form1.pic.Width / (n + 2), 10 + width / 2 + tmpY * Form1.pic.Height / (m + 2));
+                        graf.DrawLine(pene, 10 + size / 2 + i * Form1.pic.Width / (n + 2), 10 + size / 2 + j * Form1.pic.Height / (m + 2),
+                                            10 + size / 2 + tmpX * Form1.pic.Width / (n + 2), 10 + size / 2 + tmpY * Form1.pic.Height / (m + 2));
+                        present = true;
                     }
+
+                    if (present) graf.DrawEllipse(pene, 10 + i * Form1.pic.Width / (n + 2), 10 + j * Form1.pic.Height / (m + 2), size, size);
                 }         
         }
 
@@ -113,6 +128,7 @@ namespace NAVYForces
         {
             map.AddConnection(from, to, reverse);
         }
+
         private void PointOneToTwo(int index, out int x, out int y)
         {
             for (int i=0;i<map.N;i++)
@@ -149,6 +165,9 @@ namespace NAVYForces
             return taxies.Count;
         }
 
+        public int M { get { return map.M; } }
+        public int N { get { return map.N; } }
+
         public List<int> GetPassengersIdsInPoint(int id)
         {
             List<int> output = new List<int>(0);
@@ -160,11 +179,18 @@ namespace NAVYForces
         {
             List<int> output = new List<int>(0);
             var tmp = new List<int>(0);
+            int lastid = -1;
 
-            for (int i = 0; i < passengers.Count; i++) 
-                if (passengers[i].Status==PassengerStatus.OnStreet&&
-                    map.CalculateWay(point, passengers[i].Position, out tmp) && 
-                    (tmp.Count < output.Count || output.Count==0)) output = tmp;
+            for (int i = 0; i < passengers.Count; i++)
+                if (passengers[i].Status == PassengerStatus.Idle &&
+                    map.CalculateWay(point, passengers[i].Position, out tmp) &&
+                    (tmp.Count < output.Count || output.Count == 0))
+                {
+                    output = tmp;
+                    passengers[i].Status = PassengerStatus.OnStreet;
+                    if (lastid != -1) passengers[lastid].Status = PassengerStatus.Idle;
+                    lastid = i;
+                }
 
             return output;
         }

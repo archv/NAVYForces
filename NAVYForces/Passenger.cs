@@ -10,7 +10,7 @@ namespace NAVYForces
     {
         PassengerStatus Status { get; set; }
         int Destination { get; }
-        int Position { get; }
+        int Position { get; set; }
     }
 
     public enum PassengerStatus { Idle, OnStreet, InCar, Arrived };
@@ -22,7 +22,7 @@ namespace NAVYForces
         private int position;
         private PassengerStatus status;
 
-        public Passenger(int startPosition, int destination, PassengerStatus status = PassengerStatus.OnStreet)
+        public Passenger(int startPosition, int destination, PassengerStatus status = PassengerStatus.Idle)
         {
             this.startPosition = startPosition;
             this.destination = destination;
@@ -32,6 +32,6 @@ namespace NAVYForces
 
         public PassengerStatus Status { get { return status; } set { status = value; } }
         public int Destination { get { return destination; } }
-        public int Position { get { return position; } }
+        public int Position { get { return position; } set { position = value; } }
     }
 }
