@@ -14,7 +14,7 @@ namespace NAVYForces
     {
         public static PictureBox pic;
         Controller Controller = new Controller();
-        Bitmap screen = new Bitmap("Screen.png");
+        Bitmap screen; 
         Graphics graph;
         public Form1()
         {
@@ -30,7 +30,8 @@ namespace NAVYForces
 
 
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {   
+            screen = new Bitmap(2000,2000);
             pictureBox1.Image = screen;
             graph = Graphics.FromImage(screen);
             pic = this.pictureBox1;
