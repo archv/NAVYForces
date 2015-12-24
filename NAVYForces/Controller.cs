@@ -77,7 +77,8 @@ namespace NAVYForces
                 
             Pen pene = new Pen(Color.Black, 1);
             Pen penp = new Pen(Color.Green, 1);
-            Pen pent = new Pen(Color.Yellow, 1);
+            Pen pent = new Pen(Color.Red, 1);
+
 
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
