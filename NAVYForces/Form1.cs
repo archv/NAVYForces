@@ -36,5 +36,10 @@ namespace NAVYForces
             graph = Graphics.FromImage(screen);
             pic = this.pictureBox1;
         }
+
+        private void Nexybutt_Click(object sender, EventArgs e)
+        {
+           // Controller.Next();   
+        }
     }
 }

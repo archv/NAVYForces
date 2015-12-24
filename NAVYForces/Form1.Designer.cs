@@ -35,6 +35,7 @@
             this.labelTaxi = new System.Windows.Forms.Label();
             this.DrawMapButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Nexybutt = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -109,12 +110,24 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // Nexybutt
+            // 
+            this.Nexybutt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Nexybutt.Location = new System.Drawing.Point(757, 457);
+            this.Nexybutt.Name = "Nexybutt";
+            this.Nexybutt.Size = new System.Drawing.Size(75, 23);
+            this.Nexybutt.TabIndex = 4;
+            this.Nexybutt.Text = "Next";
+            this.Nexybutt.UseVisualStyleBackColor = true;
+            this.Nexybutt.Click += new System.EventHandler(this.Nexybutt_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(844, 521);
+            this.Controls.Add(this.Nexybutt);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.DrawMapButton);
             this.Controls.Add(this.panel1);
@@ -139,6 +152,7 @@
         private System.Windows.Forms.Label labelTaxi;
         private System.Windows.Forms.Button DrawMapButton;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button Nexybutt;
     }
 }
 
