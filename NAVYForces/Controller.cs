@@ -32,8 +32,8 @@ namespace NAVYForces
         public Controller()
         {
             map = new Map();
-            taxies = new List<Taxi>(2);
-            passengers = new List<Passenger>(15);
+            taxies = new List<Taxi>(0);
+            passengers = new List<Passenger>(0);
             AddConnection(6, 15);
             // Debug code! Delete!
         /*    map.AddConnection(2, 5);
@@ -85,7 +85,10 @@ namespace NAVYForces
                         if (passengers[k].Position == j * m + i)
                             graf.DrawRectangle(penp, 10 + i * Form1.pic.Width / (n + 10), 10 + j * Form1.pic.Height / (m + 10), width / 3, height / 3);
                     }
-                    
+                  /*  for (int c = 0; c < map.Connections.Count; c++)
+                    {
+                       if(map.Connections[c].Count
+                    }*/
                 }         
         }
 
