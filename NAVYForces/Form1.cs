@@ -41,5 +41,12 @@ namespace NAVYForces
         {
            // Controller.Next();   
         }
+
+        private void Form1_ClientSizeChanged(object sender, EventArgs e)
+        {
+            Graphics.FromImage(screen).Clear(Color.White);
+            Controller.DrawMap(screen, graph);
+            Refresh();
+        }
     }
 }
