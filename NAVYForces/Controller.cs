@@ -100,7 +100,7 @@ namespace NAVYForces
 
                     for (int k = 0; k < GetPassengerCount(); k++)
                         if (present = (passengers[k].Position == j * m + i))
-                            graf.DrawRectangle(penp, 10 + size / 3 + i * Form1.pic.Width / (n + 2),
+                            graf.DrawRectangle(new Pen(((passengers[k].Status==PassengerStatus.Arrived)?Color.Green:Color.Orange),2), 10 + size / 3 + i * Form1.pic.Width / (n + 2),
                                                      10 + size / 3 + j * Form1.pic.Height / (m + 2), size / 3, size / 3);
                     
                     for (int c = 0; c < map.Connections[j*m+i].Count; c++)

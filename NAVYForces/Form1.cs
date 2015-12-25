@@ -21,7 +21,49 @@ namespace NAVYForces
         private AppStatus status = AppStatus.Idle;
         private int tmpstatus = -1;
 
-        public AppStatus Status { set { if(value!=AppStatus.Idle)SelectedPtLabel.Text = "Выберите точку"; status = value; } get { return status; } }
+        public AppStatus Status 
+        {
+            set 
+            {
+                switch (value)
+                {
+                    case AppStatus.Idle: 
+                        enableBtns();
+                        tmpstatus = -1;
+                        break;
+                    case AppStatus.AddingConnection: 
+                        AddPassBtn.Enabled = false;
+                        AddTaxiBtn.Enabled = false;
+                        AddConnBtn.Text = "Отменить";
+                        break;
+                    case AppStatus.AddingPassenger:
+                        AddPassBtn.Text = "Отменить";
+                        AddTaxiBtn.Enabled = false;
+                        AddConnBtn.Enabled = false;
+                        break;
+                    case AppStatus.AddingTaxi:
+                        AddPassBtn.Enabled = false;
+                        AddTaxiBtn.Text = "Отменить";
+                        AddConnBtn.Enabled = false;
+                        break;
+                }
+                
+                if(value!=AppStatus.Idle)SelectedPtLabel.Text = "Выберите точку";
+                status = value; 
+            } 
+            get { return status; } 
+        }
+
+        private void enableBtns()
+        {
+            AddConnBtn.Enabled = true;
+            AddPassBtn.Enabled = true;
+            AddTaxiBtn.Enabled = true;
+
+            AddConnBtn.Text = "Add connection";
+            AddTaxiBtn.Text = "Add taxi";
+            AddPassBtn.Text = "Add passenger";
+        }
 
         public Form1()
         {
@@ -32,7 +74,6 @@ namespace NAVYForces
         {
             mapRedraw();
         }
-
 
         private void Form1_Load(object sender, EventArgs e)
         {   
@@ -71,7 +112,7 @@ namespace NAVYForces
                     case AppStatus.Idle: updateListsInfo(index); break;
                     case AppStatus.AddingTaxi: 
                         Program.FController.AddTaxi(new Taxi(index));
-                        status = AppStatus.Idle; 
+                        Status = AppStatus.Idle; 
                         mapRedraw();
                         break;
                     case AppStatus.AddingPassenger:
@@ -84,7 +125,7 @@ namespace NAVYForces
                         {
                             Program.FController.AddPassenger(new Passenger(tmpstatus, index));
                             SelectedPtLabel.Text = "Пассажир добавлен!";
-                            status = AppStatus.Idle;
+                            Status = AppStatus.Idle;
                             tmpstatus = -1;
                             mapRedraw();
                         }
@@ -99,7 +140,7 @@ namespace NAVYForces
                         {
                             Program.FController.AddConnection(tmpstatus, index);
                             SelectedPtLabel.Text = "Связь добавлена!";
-                            status = AppStatus.Idle;
+                            Status = AppStatus.Idle;
                             tmpstatus = -1;
                             mapRedraw();
                         }
@@ -184,20 +225,17 @@ namespace NAVYForces
 
         private void AddTaxiBtn_Click(object sender, EventArgs e)
         {
-            Status = AppStatus.AddingTaxi;
-            //SelectedPtLabel.Text = "Выберите точку";
+            Status = (Status == AppStatus.AddingTaxi) ? AppStatus.Idle : AppStatus.AddingTaxi;
         }
 
         private void AddPassBtn_Click(object sender, EventArgs e)
         {
-            Status = AppStatus.AddingPassenger;
-            //SelectedPtLabel.Text = "Выберите точку";
+            Status = (Status == AppStatus.AddingPassenger) ? AppStatus.Idle : AppStatus.AddingPassenger;
         }
 
         private void AddConnBtn_Click(object sender, EventArgs e)
         {
-            Status = AppStatus.AddingConnection;
-            //SelectedPtLabel.Text = "Выберите точку";
+            Status = (Status == AppStatus.AddingConnection) ? AppStatus.Idle : AppStatus.AddingConnection;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
