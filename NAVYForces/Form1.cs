@@ -57,6 +57,8 @@ namespace NAVYForces
         private void button1_Click(object sender, EventArgs e)
         {
             Program.FController.AddPassenger(new Passenger(87, 4));
+            Program.FController.DrawMap(screen, graph);
+            Refresh();
         }
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
