@@ -40,15 +40,15 @@ namespace NAVYForces
         private bool recursiveCalculate(int from, int to, ref List<int> used, ref List<int> way)
         {
             used.Add(from);
-            if (from == to) { way.Add(from); return true; }
+            if (from == to) { way.Insert(0,from); return true; }
 
             if (connections[from].Count > 0)
                 for (int i = 0; i < connections[from].Count; i++)
                 {
-                    bool test = used.FindIndex(x => x == connections[from][i]) == -1;
-                    if (test && recursiveCalculate(connections[from][i], to, ref used, ref way))
+                    bool pointNotUsed = used.FindIndex(x => x == connections[from][i]) == -1;
+                    if (pointNotUsed && recursiveCalculate(connections[from][i], to, ref used, ref way))
                     {
-                        way.Add(from);
+                        way.Insert(0, from);
                         return true;
                     }
                 }            

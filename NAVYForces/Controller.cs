@@ -85,31 +85,23 @@ namespace NAVYForces
             float size = Form1.ActiveForm.Size.Width / (3 * ((m <= n)?n:m));                
                 
             Pen pene = new Pen(Color.Black, 1);
-            Pen penp = new Pen(Color.Green, 1);
-            Pen pent = new Pen(Color.Red, 1);
-            
-
+            Pen penp = new Pen(Color.Green, 2);
+            Pen pent = new Pen(Color.Red, 2);
 
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
+                    bool present = false;
                     
-                    bool present = false;   
                     for (int t = 0; t < GetTaxiCount(); t++)
-                        if (taxies[t].Position == j * m + i)
-                        {
-                            graf.FillRectangle(Brushes.Gold, 10 + size / 4 + i * Form1.pic.Width / (n + 2),
+                        if (present = (taxies[t].Position == j * m + i))
+                            graf.DrawRectangle(pent, 10 + size / 4 + i * Form1.pic.Width / (n + 2),
                                                      10 + size / 4 + j * Form1.pic.Height / (m + 2), size / 2, size / 2);
-                            present = true;
-                        }
-                    for (int k = 0; k < GetPassengerCount(); k++)
-                        if (passengers[k].Position == j * m + i)
-                        {
-                            graf.FillRectangle(Brushes.Green, 10 + size / 3 + i * Form1.pic.Width / (n + 2),
-                                                     10 + size / 3 + j * Form1.pic.Height / (m + 2), size / 3, size / 3);
-                            present = true;
-                        }
 
+                    for (int k = 0; k < GetPassengerCount(); k++)
+                        if (present = (passengers[k].Position == j * m + i))
+                            graf.DrawRectangle(penp, 10 + size / 3 + i * Form1.pic.Width / (n + 2),
+                                                     10 + size / 3 + j * Form1.pic.Height / (m + 2), size / 3, size / 3);
                     
                     for (int c = 0; c < map.Connections[j*m+i].Count; c++)
                     {
@@ -177,7 +169,7 @@ namespace NAVYForces
 
         public List<int> GetWayToClosestPass(int point)
         {
-            List<int> output = new List<int>(0);
+            var output = new List<int>(0);
             var tmp = new List<int>(0);
             int lastid = -1;
 

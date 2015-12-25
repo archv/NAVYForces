@@ -57,8 +57,7 @@ namespace NAVYForces
         private void button1_Click(object sender, EventArgs e)
         {
             Program.FController.AddPassenger(new Passenger(87, 4));
-            Program.FController.DrawMap(screen, graph);
-            Refresh();
+            mapRedraw();
         }
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
@@ -98,8 +97,8 @@ namespace NAVYForces
                             if(taxi.Destination==-1)
                                 tmpstr += ", стоит";
                             else
-                            tmpstr += " -> " + Program.FController.GetTaxi(i).Destination;
-
+                                tmpstr += " -> " + Program.FController.GetTaxi(i).Destination.ToString();
+                        //tmpstr += ", w " + Program.FController.GetTaxi(i).WayLength.ToString() + " p " + Program.FController.GetTaxi(i).PassengersCount.ToString();
                         listBoxTaxi.Items.Add(tmpstr);
                     }
                 if (listBoxTaxi.Items.Count == 0)
