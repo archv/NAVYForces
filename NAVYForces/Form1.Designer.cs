@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.SelectedPtLabel = new System.Windows.Forms.Label();
             this.listBoxPassngrs = new System.Windows.Forms.ListBox();
             this.listBoxTaxi = new System.Windows.Forms.ListBox();
             this.labelPassngrs = new System.Windows.Forms.Label();
@@ -37,7 +38,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Nexybutt = new System.Windows.Forms.Button();
             this.AddPassBtn = new System.Windows.Forms.Button();
-            this.SelectedPtLabel = new System.Windows.Forms.Label();
+            this.AddTaxiBtn = new System.Windows.Forms.Button();
+            this.AddConnBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +57,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(270, 320);
             this.panel1.TabIndex = 0;
+            // 
+            // SelectedPtLabel
+            // 
+            this.SelectedPtLabel.AutoSize = true;
+            this.SelectedPtLabel.Location = new System.Drawing.Point(9, 8);
+            this.SelectedPtLabel.Name = "SelectedPtLabel";
+            this.SelectedPtLabel.Size = new System.Drawing.Size(99, 13);
+            this.SelectedPtLabel.TabIndex = 4;
+            this.SelectedPtLabel.Text = "Точка не выбрана";
             // 
             // listBoxPassngrs
             // 
@@ -93,11 +104,11 @@
             // DrawMapButton
             // 
             this.DrawMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DrawMapButton.Location = new System.Drawing.Point(757, 486);
+            this.DrawMapButton.Location = new System.Drawing.Point(757, 399);
             this.DrawMapButton.Name = "DrawMapButton";
             this.DrawMapButton.Size = new System.Drawing.Size(75, 23);
             this.DrawMapButton.TabIndex = 1;
-            this.DrawMapButton.Text = "DrawMap";
+            this.DrawMapButton.Text = "RedrawMap";
             this.DrawMapButton.UseVisualStyleBackColor = true;
             this.DrawMapButton.Click += new System.EventHandler(this.DrawMapButton_Click);
             // 
@@ -117,7 +128,7 @@
             // Nexybutt
             // 
             this.Nexybutt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Nexybutt.Location = new System.Drawing.Point(757, 457);
+            this.Nexybutt.Location = new System.Drawing.Point(757, 370);
             this.Nexybutt.Name = "Nexybutt";
             this.Nexybutt.Size = new System.Drawing.Size(75, 23);
             this.Nexybutt.TabIndex = 4;
@@ -128,22 +139,35 @@
             // AddPassBtn
             // 
             this.AddPassBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddPassBtn.Location = new System.Drawing.Point(656, 486);
+            this.AddPassBtn.Location = new System.Drawing.Point(737, 428);
             this.AddPassBtn.Name = "AddPassBtn";
             this.AddPassBtn.Size = new System.Drawing.Size(95, 23);
             this.AddPassBtn.TabIndex = 5;
             this.AddPassBtn.Text = "Add passenger";
             this.AddPassBtn.UseVisualStyleBackColor = true;
-            this.AddPassBtn.Click += new System.EventHandler(this.button1_Click);
+            this.AddPassBtn.Click += new System.EventHandler(this.AddPassBtn_Click);
             // 
-            // SelectedPtLabel
+            // AddTaxiBtn
             // 
-            this.SelectedPtLabel.AutoSize = true;
-            this.SelectedPtLabel.Location = new System.Drawing.Point(9, 8);
-            this.SelectedPtLabel.Name = "SelectedPtLabel";
-            this.SelectedPtLabel.Size = new System.Drawing.Size(99, 13);
-            this.SelectedPtLabel.TabIndex = 4;
-            this.SelectedPtLabel.Text = "Точка не выбрана";
+            this.AddTaxiBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddTaxiBtn.Location = new System.Drawing.Point(737, 457);
+            this.AddTaxiBtn.Name = "AddTaxiBtn";
+            this.AddTaxiBtn.Size = new System.Drawing.Size(95, 23);
+            this.AddTaxiBtn.TabIndex = 6;
+            this.AddTaxiBtn.Text = "Add taxi";
+            this.AddTaxiBtn.UseVisualStyleBackColor = true;
+            this.AddTaxiBtn.Click += new System.EventHandler(this.AddTaxiBtn_Click);
+            // 
+            // AddConnBtn
+            // 
+            this.AddConnBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddConnBtn.Location = new System.Drawing.Point(737, 486);
+            this.AddConnBtn.Name = "AddConnBtn";
+            this.AddConnBtn.Size = new System.Drawing.Size(95, 23);
+            this.AddConnBtn.TabIndex = 7;
+            this.AddConnBtn.Text = "Add connection";
+            this.AddConnBtn.UseVisualStyleBackColor = true;
+            this.AddConnBtn.Click += new System.EventHandler(this.AddConnBtn_Click);
             // 
             // Form1
             // 
@@ -151,6 +175,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(844, 521);
+            this.Controls.Add(this.AddConnBtn);
+            this.Controls.Add(this.AddTaxiBtn);
             this.Controls.Add(this.AddPassBtn);
             this.Controls.Add(this.Nexybutt);
             this.Controls.Add(this.pictureBox1);
@@ -162,6 +188,7 @@
             this.Text = "Система обеспечения такси";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ClientSizeChanged += new System.EventHandler(this.Form1_ClientSizeChanged);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -181,6 +208,8 @@
         private System.Windows.Forms.Button Nexybutt;
         private System.Windows.Forms.Button AddPassBtn;
         private System.Windows.Forms.Label SelectedPtLabel;
+        private System.Windows.Forms.Button AddTaxiBtn;
+        private System.Windows.Forms.Button AddConnBtn;
     }
 }
 
