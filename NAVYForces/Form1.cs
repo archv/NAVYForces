@@ -74,6 +74,7 @@ namespace NAVYForces
 
         private void DrawMapButton_Click(object sender, EventArgs e)
         {
+            Program.FController.ClearAll();
             Refresh();
         }
 

@@ -122,11 +122,11 @@
             // DrawMapButton
             // 
             this.DrawMapButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DrawMapButton.Location = new System.Drawing.Point(764, 414);
+            this.DrawMapButton.Location = new System.Drawing.Point(744, 414);
             this.DrawMapButton.Name = "DrawMapButton";
-            this.DrawMapButton.Size = new System.Drawing.Size(75, 23);
+            this.DrawMapButton.Size = new System.Drawing.Size(95, 23);
             this.DrawMapButton.TabIndex = 1;
-            this.DrawMapButton.Text = "RedrawMap";
+            this.DrawMapButton.Text = "Очистка карты";
             this.DrawMapButton.UseVisualStyleBackColor = true;
             this.DrawMapButton.Click += new System.EventHandler(this.DrawMapButton_Click);
             // 
@@ -212,11 +212,11 @@
             // 
             this.Descr3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Descr3.AutoSize = true;
-            this.Descr3.Location = new System.Drawing.Point(637, 418);
+            this.Descr3.Location = new System.Drawing.Point(643, 419);
             this.Descr3.Name = "Descr3";
-            this.Descr3.Size = new System.Drawing.Size(121, 13);
+            this.Descr3.Size = new System.Drawing.Size(95, 13);
             this.Descr3.TabIndex = 10;
-            this.Descr3.Text = "Перерисовка карты ->";
+            this.Descr3.Text = "Очистка карты ->";
             // 
             // Descr5
             // 

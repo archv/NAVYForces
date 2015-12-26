@@ -13,6 +13,7 @@ namespace NAVYForces
         int M { get; }
         int N { get; }
         List<List<int>> Connections { get; }
+        void ClearAll();
     }
 
     class Map: iMap
@@ -35,6 +36,12 @@ namespace NAVYForces
             var tmp = new List<int>(0);
             var used = new List<int>(0);
             return recursiveCalculate(from, to, ref used, ref way);
+        }
+
+        public void ClearAll()
+        {
+            connections = new List<List<int>>(0);
+            for (int i = 0; i < m * n; i++) connections.Add(new List<int>(0));
         }
 
         private bool recursiveCalculate(int from, int to, ref List<int> used, ref List<int> way)
