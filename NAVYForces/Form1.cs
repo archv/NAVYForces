@@ -74,7 +74,11 @@ namespace NAVYForces
 
         private void DrawMapButton_Click(object sender, EventArgs e)
         {
+            listBoxTaxi.Items.Clear();       
+            listBoxPassngrs.Items.Clear();
             Program.FController.ClearAll();
+            TopLabel.Text = startTopLabelText;
+            SelectedPtLabel.Text = "Точка не выбрана";
             Refresh();
         }
 
