@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NAVYForces
@@ -35,21 +34,24 @@ namespace NAVYForces
                         AddPassBtn.Enabled = false;
                         AddTaxiBtn.Enabled = false;
                         AddConnBtn.Text = "Отменить";
+                        TopLabel.Text = "Выберите точку, в которой начинается связь. Нажмите кнопку \"Отменить\" для отмены.";
                         break;
                     case AppStatus.AddingPassenger:
                         AddPassBtn.Text = "Отменить";
                         AddTaxiBtn.Enabled = false;
                         AddConnBtn.Enabled = false;
+                        TopLabel.Text = "Выберите точку, в которой будет находиться пассажир. Нажмите кнопку \"Отменить\" для отмены.";
                         break;
                     case AppStatus.AddingTaxi:
                         AddPassBtn.Enabled = false;
                         AddTaxiBtn.Text = "Отменить";
                         AddConnBtn.Enabled = false;
+                        TopLabel.Text = "Выберите точку, в которой будет стоять такси. Нажмите кнопку \"Отменить\" для отмены.";
                         break;
                 }
-                
-                if(value!=AppStatus.Idle)SelectedPtLabel.Text = "Выберите точку";
+
                 status = value; 
+                Refresh();
             } 
             get { return status; } 
         }
@@ -60,9 +62,9 @@ namespace NAVYForces
             AddPassBtn.Enabled = true;
             AddTaxiBtn.Enabled = true;
 
-            AddConnBtn.Text = "Add connection";
-            AddTaxiBtn.Text = "Add taxi";
-            AddPassBtn.Text = "Add passenger";
+            AddConnBtn.Text = "Добавить связь";
+            AddTaxiBtn.Text = "Добавить такси";
+            AddPassBtn.Text = "Добавить пассажира";
         }
 
         public Form1()
@@ -72,7 +74,7 @@ namespace NAVYForces
 
         private void DrawMapButton_Click(object sender, EventArgs e)
         {
-            mapRedraw();
+            Refresh();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -81,24 +83,18 @@ namespace NAVYForces
             pictureBox1.Image = screen;
             graph = Graphics.FromImage(screen);
             pic = this.pictureBox1;
-            mapRedraw();
         }
 
         private void Nexybutt_Click(object sender, EventArgs e)
         {
             Program.FController.Next();
-            mapRedraw();
+            Refresh();
         }
 
-        private void Form1_ClientSizeChanged(object sender, EventArgs e)
-        {
-            mapRedraw();
-        }
-
-        private void mapRedraw()
+        private void mapRedraw(bool drawAll = false, int drawGray = -1)
         {
             Graphics.FromImage(screen).Clear(Color.White);
-            Program.FController.DrawMap(screen, graph);
+            Program.FController.DrawMap(screen, graph, drawAll, drawGray);
             pictureBox1.Refresh();
         }
 
@@ -106,47 +102,64 @@ namespace NAVYForces
         {
             int index = calculateChosenPoint(e.X, e.Y);
 
-            if (index>=0)
-                switch(status)
+            listBoxTaxi.Items.Clear();       // clear listboxes and add info about chosen point
+            listBoxPassngrs.Items.Clear();
+
+            if (index >= 0)
+            {
+                switch (status)
                 {
-                    case AppStatus.Idle: updateListsInfo(index); break;
-                    case AppStatus.AddingTaxi: 
+                    case AppStatus.AddingTaxi:
                         Program.FController.AddTaxi(new Taxi(index));
-                        Status = AppStatus.Idle; 
-                        mapRedraw();
+                        Status = AppStatus.Idle;
+                        TopLabel.Text = "Такси добавлено в точку " + index.ToString() + ".";
+                        Refresh();
                         break;
+
                     case AppStatus.AddingPassenger:
                         if (tmpstatus == -1)
                         {
                             tmpstatus = index;
-                            SelectedPtLabel.Text = "Укажите точку назначения";
+                            TopLabel.Text = "Укажите точку назначения пассажира. Нажмите кнопку \"Отменить\" для отмены.";
                         }
                         else
                         {
                             Program.FController.AddPassenger(new Passenger(tmpstatus, index));
-                            SelectedPtLabel.Text = "Пассажир добавлен!";
+                            TopLabel.Text = "Пассажир добавлен в точку " + tmpstatus.ToString() + ".";
                             Status = AppStatus.Idle;
                             tmpstatus = -1;
                             mapRedraw();
                         }
                         break;
+
                     case AppStatus.AddingConnection:
                         if (tmpstatus == -1)
                         {
                             tmpstatus = index;
-                            SelectedPtLabel.Text = "Укажите точку назначения";
+                            TopLabel.Text = "Укажите вторую точку связи. Нажмите кнопку \"Отменить\" для отмены.";
+                            Refresh();
                         }
                         else
-                        {
-                            Program.FController.AddConnection(tmpstatus, index);
-                            SelectedPtLabel.Text = "Связь добавлена!";
-                            Status = AppStatus.Idle;
-                            tmpstatus = -1;
-                            mapRedraw();
-                        }
+                            if (tmpstatus == index) TopLabel.Text = "Невозможно добавить связь в ту же точку. Выберите другую точку. Нажмите кнопку \"Отменить\" для отмены.";
+                            else
+                                try
+                                {
+                                    Program.FController.AddConnection(tmpstatus, index);
+                                    TopLabel.Text = "Связь добавлена между точками " + tmpstatus.ToString() + " и " + index.ToString() + ".";
+                                    Status = AppStatus.Idle;
+                                    tmpstatus = -1;
+                                    mapRedraw();
+                                }  
+                                catch(Exception ex)
+                                {
+                                    TopLabel.Text = ex.Message + " Выберите другую точку. Нажмите кнопку \"Отменить\" для отмены.";
+                                }
                         break;
                 }
-            else SelectedPtLabel.Text = "Точка не выбрана";             // in case no point chosen
+
+                updateListsInfo(index);
+            }
+            else SelectedPtLabel.Text = "Точка не выбрана.";    // in case no point chosen
         }
 
         private int calculateChosenPoint(int x, int y)
@@ -157,8 +170,8 @@ namespace NAVYForces
 
             for (int i = 0; i < Program.FController.N; i++)     // detect chosen point
                 for (int j = 0; j < Program.FController.M; j++)
-                    if (x > 10 + i * Form1.pic.Width / (n + 2) && y > 10 + j * Form1.pic.Height / (m + 2) &&
-                        x < 10 + i * Form1.pic.Width / (n + 2) + size && y < 10 + j * Form1.pic.Height / (m + 2) + size)
+                    if (x > 10 + i * Form1.pic.Width / n && y > 10 + j * Form1.pic.Height / m  &&
+                        x < 10 + i * Form1.pic.Width / n + size && y < 10 + j * Form1.pic.Height / m + size)
                         return j * m + i;
             return -1;
         }
@@ -167,22 +180,25 @@ namespace NAVYForces
         {
             string tmpstr = new string('c', 0);
 
-            listBoxTaxi.Items.Clear();                                  // clear listboxes and add info about chosen point
-            listBoxPassngrs.Items.Clear();
-            SelectedPtLabel.Text = "Выбрана точка " + index.ToString();
+            //listBoxTaxi.Items.Clear();                                  // clear listboxes and add info about chosen point
+            //listBoxPassngrs.Items.Clear();
+            // ^ Already cleared in MouseClick
+
+            SelectedPtLabel.Text = "Выбрана точка " + index.ToString() + ". Объекты в точке:";
 
             for (int i = 0; i < Program.FController.GetTaxiCount(); i++)
                 if (Program.FController.GetTaxi(i).Position == index)
                 {
                     Taxi taxi = Program.FController.GetTaxi(i);
 
-                    tmpstr = i.ToString();
+                    tmpstr = "№" + i.ToString();
                     if (taxi.Position != taxi.Destination)
                         if (taxi.Destination == -1)
                             tmpstr += ", стоит";
                         else
                             tmpstr += " -> " + Program.FController.GetTaxi(i).Destination.ToString();
-                    //tmpstr += ", w " + Program.FController.GetTaxi(i).WayLength.ToString() + " p " + Program.FController.GetTaxi(i).PassengersCount.ToString();
+                    //tmpstr += ", w " + Program.FController.GetTaxi(i).WayLength.ToString() + " p " +
+                            //Program.FController.GetTaxi(i).PassengersCount.ToString();
                     listBoxTaxi.Items.Add(tmpstr);
                 }
             if (listBoxTaxi.Items.Count == 0)
@@ -197,8 +213,8 @@ namespace NAVYForces
             {
                 Passenger passenger = Program.FController.GetPassenger(passengers[i]);
 
-                tmpstr = passengers[i].ToString() + " -> " +
-                         passenger.Destination.ToString() + ", " +
+                tmpstr = "№" + passengers[i].ToString() + ((passenger.Destination!=passenger.Position)?(" -> " +
+                        passenger.Destination.ToString()):("")) + ", " +
                          passengerStatusToString(passenger.Status);
 
                 listBoxPassngrs.Items.Add(tmpstr);
@@ -218,32 +234,50 @@ namespace NAVYForces
                 case PassengerStatus.Arrived: return "приехал";
                 case PassengerStatus.Idle: return "ждет";
                 case PassengerStatus.InCar: return "едет";
-                case PassengerStatus.OnStreet: return "ждет на улице";
+                case PassengerStatus.OnStreet: return "ждет";
                 default: return "ждет";
             }
         }
 
-        private void AddTaxiBtn_Click(object sender, EventArgs e)
+        private void AddTaxiBtn_Click(object sender, EventArgs e) { addTaxiClicked(); }
+        private void AddConnBtn_Click(object sender, EventArgs e) { addConnClicked(); }
+        private void AddPassBtn_Click(object sender, EventArgs e) { addPassClicked(); }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            if (keyData == Keys.Escape) { this.Close(); return true; }
+            if (keyData == Keys.W) { Program.FController.Next(); Refresh(); return true; }
+            if (keyData == Keys.A) { addTaxiClicked(); return true; }
+            if (keyData == Keys.S) { addPassClicked(); return true; }
+            if (keyData == Keys.D) { addConnClicked(); return true; }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private string startTopLabelText = "Для начала работы воспользуйтесь кнопками внизу окна или нажмите на любую"+
+                                           " точку на карте для получения информации о находящихся в ней объектах.";
+
+        private void addTaxiClicked()
+        {
+            if (Status == AppStatus.AddingTaxi) TopLabel.Text = startTopLabelText;
             Status = (Status == AppStatus.AddingTaxi) ? AppStatus.Idle : AppStatus.AddingTaxi;
         }
 
-        private void AddPassBtn_Click(object sender, EventArgs e)
+        private void addPassClicked()
         {
+            if (Status == AppStatus.AddingPassenger) TopLabel.Text = startTopLabelText;
             Status = (Status == AppStatus.AddingPassenger) ? AppStatus.Idle : AppStatus.AddingPassenger;
         }
 
-        private void AddConnBtn_Click(object sender, EventArgs e)
+        private void addConnClicked()
         {
+            if (Status == AppStatus.AddingConnection) TopLabel.Text = startTopLabelText;
             Status = (Status == AppStatus.AddingConnection) ? AppStatus.Idle : AppStatus.AddingConnection;
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape) this.Close();
-            if (e.KeyCode == Keys.A) Status = AppStatus.AddingTaxi;
-            if (e.KeyCode == Keys.S) Status = AppStatus.AddingPassenger;
-            if (e.KeyCode == Keys.D) Status = AppStatus.AddingConnection;
+            mapRedraw(Status==AppStatus.AddingConnection, tmpstatus);
         }
     }
 }

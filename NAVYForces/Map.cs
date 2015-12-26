@@ -62,6 +62,9 @@ namespace NAVYForces
 
         public void AddConnection(int from, int to, bool reverse = true)
         {
+            for (int i = 0; i < connections[from].Count; i++)
+                if (connections[from][i] == to) throw new Exception("Связь уже существует.");
+
             connections[from].Add(to);
             if (reverse) connections[to].Add(from);
         }

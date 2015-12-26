@@ -11,7 +11,7 @@ namespace NAVYForces
     interface iController
     {
         void Next();
-        void DrawMap(Bitmap screen, Graphics graf);
+        void DrawMap(Bitmap screen, Graphics graf, bool drawAll = false, int drawGray = -1);
         void AddTaxi(Taxi taxi);
         void AddPassenger(Passenger passenger);
         int GetPassengerCount();
@@ -78,15 +78,17 @@ namespace NAVYForces
         {
             for (int i = 0; i < taxies.Count; i++) taxies[i].Next();
         }
-        public void DrawMap(Bitmap screen, Graphics graf)
+        public void DrawMap(Bitmap screen, Graphics graf, bool drawAll = false, int drawGray = -1)
         {
             int m = map.M;
             int n = map.N;
-            float size = Form1.ActiveForm.Size.Width / (3 * ((m <= n)?n:m));                
+            float size = Form1.pic.Width / (2 * ((m <= n)?n:m));                
                 
-            Pen pene = new Pen(Color.Black, 1);
-            Pen penp = new Pen(Color.Green, 2);
-            Pen pent = new Pen(Color.Red, 2);
+            Pen pene = new Pen(Color.Black, 1);      // connection pen
+            Pen penp = new Pen(Color.Green, 2);      // passenger pen
+            Pen pent = new Pen(Color.Red, 2);        // taxi pen
+            Pen pengray = new Pen(Color.Gray, 1);
+            Pen penlightgray = new Pen(Color.LightGray, 1);
 
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
@@ -95,24 +97,28 @@ namespace NAVYForces
                     
                     for (int t = 0; t < GetTaxiCount(); t++)
                         if (present = (taxies[t].Position == j * m + i))
-                            graf.DrawRectangle(pent, 10 + size / 4 + i * Form1.pic.Width / (n + 2),
-                                                     10 + size / 4 + j * Form1.pic.Height / (m + 2), size / 2, size / 2);
+                            graf.DrawRectangle(pent, 10 + size / 4 + i * Form1.pic.Width / n,
+                                                     10 + size / 4 + j * Form1.pic.Height / m, size / 2, size / 2);
 
                     for (int k = 0; k < GetPassengerCount(); k++)
                         if (present = (passengers[k].Position == j * m + i))
-                            graf.DrawRectangle(new Pen(((passengers[k].Status==PassengerStatus.Arrived)?Color.Green:Color.Orange),2), 10 + size / 3 + i * Form1.pic.Width / (n + 2),
-                                                     10 + size / 3 + j * Form1.pic.Height / (m + 2), size / 3, size / 3);
+                            graf.DrawRectangle(new Pen(((passengers[k].Status==PassengerStatus.Arrived)?Color.Green:Color.Orange),2), 10 + size / 3 + i * Form1.pic.Width / n,
+                                                     10 + size / 3 + j * Form1.pic.Height / m, size / 3, size / 3);
                     
                     for (int c = 0; c < map.Connections[j*m+i].Count; c++)
                     {
                         int tmpX,tmpY;
                         PointOneToTwo(map.Connections[j * m + i][c], out tmpX, out tmpY);
-                        graf.DrawLine(pene, 10 + size / 2 + i * Form1.pic.Width / (n + 2), 10 + size / 2 + j * Form1.pic.Height / (m + 2),
-                                            10 + size / 2 + tmpX * Form1.pic.Width / (n + 2), 10 + size / 2 + tmpY * Form1.pic.Height / (m + 2));
+                        graf.DrawLine(pene, 10 + size / 2 + i * Form1.pic.Width / n, 10 + size / 2 + j * Form1.pic.Height / m,
+                                            10 + size / 2 + tmpX * Form1.pic.Width / n, 10 + size / 2 + tmpY * Form1.pic.Height / m );
                         present = true;
                     }
 
-                    if (present) graf.DrawEllipse(pene, 10 + i * Form1.pic.Width / (n + 2), 10 + j * Form1.pic.Height / (m + 2), size, size);
+                    if (present || drawAll)
+                    {
+                        bool makeBlack = (drawGray == j * m + i || (!drawAll && present));
+                        graf.DrawEllipse((makeBlack) ? pene : ((present)?pengray:penlightgray), 10 + i * Form1.pic.Width / n, 10 + j * Form1.pic.Height / m, size, size);
+                    }
                 }         
         }
 
