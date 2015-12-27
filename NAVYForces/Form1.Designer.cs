@@ -50,7 +50,6 @@
             this.Descr8 = new System.Windows.Forms.Label();
             this.Descr10 = new System.Windows.Forms.Label();
             this.Descr4 = new System.Windows.Forms.Label();
-            this.Descr11 = new System.Windows.Forms.Label();
             this.TopLabel = new System.Windows.Forms.Label();
             this.labelA = new System.Windows.Forms.Label();
             this.labelS = new System.Windows.Forms.Label();
@@ -146,9 +145,9 @@
             // Nexybutt
             // 
             this.Nexybutt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Nexybutt.Location = new System.Drawing.Point(764, 385);
+            this.Nexybutt.Location = new System.Drawing.Point(744, 385);
             this.Nexybutt.Name = "Nexybutt";
-            this.Nexybutt.Size = new System.Drawing.Size(75, 23);
+            this.Nexybutt.Size = new System.Drawing.Size(95, 23);
             this.Nexybutt.TabIndex = 4;
             this.Nexybutt.Text = "Next";
             this.Nexybutt.UseVisualStyleBackColor = true;
@@ -183,7 +182,7 @@
             this.AddConnBtn.Name = "AddConnBtn";
             this.AddConnBtn.Size = new System.Drawing.Size(95, 37);
             this.AddConnBtn.TabIndex = 7;
-            this.AddConnBtn.Text = "Добавить связь";
+            this.AddConnBtn.Text = "Добавить участок пути";
             this.AddConnBtn.UseVisualStyleBackColor = true;
             this.AddConnBtn.Click += new System.EventHandler(this.AddConnBtn_Click);
             // 
@@ -202,7 +201,7 @@
             // 
             this.Descr2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Descr2.AutoSize = true;
-            this.Descr2.Location = new System.Drawing.Point(592, 389);
+            this.Descr2.Location = new System.Drawing.Point(577, 390);
             this.Descr2.Name = "Descr2";
             this.Descr2.Size = new System.Drawing.Size(166, 13);
             this.Descr2.TabIndex = 9;
@@ -212,7 +211,7 @@
             // 
             this.Descr3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Descr3.AutoSize = true;
-            this.Descr3.Location = new System.Drawing.Point(643, 419);
+            this.Descr3.Location = new System.Drawing.Point(647, 419);
             this.Descr3.Name = "Descr3";
             this.Descr3.Size = new System.Drawing.Size(95, 13);
             this.Descr3.TabIndex = 10;
@@ -222,7 +221,7 @@
             // 
             this.Descr5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Descr5.AutoSize = true;
-            this.Descr5.Location = new System.Drawing.Point(587, 493);
+            this.Descr5.Location = new System.Drawing.Point(591, 492);
             this.Descr5.Name = "Descr5";
             this.Descr5.Size = new System.Drawing.Size(138, 13);
             this.Descr5.TabIndex = 11;
@@ -233,11 +232,11 @@
             this.Descr7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Descr7.AutoSize = true;
             this.Descr7.BackColor = System.Drawing.Color.Transparent;
-            this.Descr7.Location = new System.Drawing.Point(605, 506);
+            this.Descr7.Location = new System.Drawing.Point(606, 505);
             this.Descr7.Name = "Descr7";
-            this.Descr7.Size = new System.Drawing.Size(120, 13);
+            this.Descr7.Size = new System.Drawing.Size(123, 13);
             this.Descr7.TabIndex = 12;
-            this.Descr7.Text = "места его назначения";
+            this.Descr7.Text = "его пункта назначения";
             // 
             // Descr6
             // 
@@ -253,7 +252,7 @@
             // 
             this.Descr9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Descr9.AutoSize = true;
-            this.Descr9.Location = new System.Drawing.Point(724, 541);
+            this.Descr9.Location = new System.Drawing.Point(726, 541);
             this.Descr9.Name = "Descr9";
             this.Descr9.Size = new System.Drawing.Size(16, 13);
             this.Descr9.TabIndex = 16;
@@ -263,22 +262,22 @@
             // 
             this.Descr8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Descr8.AutoSize = true;
-            this.Descr8.Location = new System.Drawing.Point(613, 535);
+            this.Descr8.Location = new System.Drawing.Point(592, 534);
             this.Descr8.Name = "Descr8";
-            this.Descr8.Size = new System.Drawing.Size(112, 13);
+            this.Descr8.Size = new System.Drawing.Size(137, 13);
             this.Descr8.TabIndex = 14;
-            this.Descr8.Text = "Добавление связи и";
+            this.Descr8.Text = "Добавление участка пути";
             // 
             // Descr10
             // 
             this.Descr10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Descr10.AutoSize = true;
             this.Descr10.BackColor = System.Drawing.Color.Transparent;
-            this.Descr10.Location = new System.Drawing.Point(605, 548);
+            this.Descr10.Location = new System.Drawing.Point(573, 547);
             this.Descr10.Name = "Descr10";
-            this.Descr10.Size = new System.Drawing.Size(120, 13);
+            this.Descr10.Size = new System.Drawing.Size(156, 13);
             this.Descr10.TabIndex = 15;
-            this.Descr10.Text = "места его назначения";
+            this.Descr10.Text = "(начальная и конечная точка)";
             // 
             // Descr4
             // 
@@ -289,16 +288,6 @@
             this.Descr4.Size = new System.Drawing.Size(114, 13);
             this.Descr4.TabIndex = 17;
             this.Descr4.Text = "Добавление такси ->";
-            // 
-            // Descr11
-            // 
-            this.Descr11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Descr11.AutoSize = true;
-            this.Descr11.Location = new System.Drawing.Point(568, 522);
-            this.Descr11.Name = "Descr11";
-            this.Descr11.Size = new System.Drawing.Size(52, 13);
-            this.Descr11.TabIndex = 18;
-            this.Descr11.Text = "(2 клика)";
             // 
             // TopLabel
             // 
@@ -356,9 +345,10 @@
             this.botLabel1.AutoSize = true;
             this.botLabel1.Location = new System.Drawing.Point(12, 557);
             this.botLabel1.Name = "botLabel1";
-            this.botLabel1.Size = new System.Drawing.Size(386, 13);
+            this.botLabel1.Size = new System.Drawing.Size(463, 13);
             this.botLabel1.TabIndex = 23;
-            this.botLabel1.Text = "Легенда: черные круги и соединяющие их линии - пункты карты и дороги. ";
+            this.botLabel1.Text = "Условные обозначения: черные круги и соединяющие их линии - пункты карты и дороги" +
+    ". ";
             // 
             // botLabel2
             // 
@@ -366,10 +356,10 @@
             this.botLabel2.AutoSize = true;
             this.botLabel2.Location = new System.Drawing.Point(12, 570);
             this.botLabel2.Name = "botLabel2";
-            this.botLabel2.Size = new System.Drawing.Size(675, 13);
+            this.botLabel2.Size = new System.Drawing.Size(697, 13);
             this.botLabel2.TabIndex = 24;
-            this.botLabel2.Text = "Красные квадраты - такси. Зеленые и оранжевые квадраты - пассажиры, ожидающие так" +
-    "си, и закончившие путь соответственно.";
+            this.botLabel2.Text = "Красные квадраты - такси. Оранжевые квадраты - пассажиры, ожидающие такси. Зелены" +
+    "е квадраты - пассажиры, закончившие путь.";
             // 
             // Form1
             // 
@@ -401,7 +391,6 @@
             this.Controls.Add(this.labelS);
             this.Controls.Add(this.labelD);
             this.Controls.Add(this.labelW);
-            this.Controls.Add(this.Descr11);
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(872, 608);
             this.Name = "Form1";
@@ -441,7 +430,6 @@
         private System.Windows.Forms.Label Descr8;
         private System.Windows.Forms.Label Descr10;
         private System.Windows.Forms.Label Descr4;
-        private System.Windows.Forms.Label Descr11;
         private System.Windows.Forms.Label TopLabel;
         private System.Windows.Forms.Label labelA;
         private System.Windows.Forms.Label labelS;

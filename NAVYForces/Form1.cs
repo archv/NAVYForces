@@ -34,19 +34,19 @@ namespace NAVYForces
                         AddPassBtn.Enabled = false;
                         AddTaxiBtn.Enabled = false;
                         AddConnBtn.Text = "Отменить";
-                        TopLabel.Text = "Выберите точку, в которой начинается связь. Нажмите кнопку \"Отменить\" для отмены.";
+                        TopLabel.Text = "Выберите точку, в которой начинается связь.";
                         break;
                     case AppStatus.AddingPassenger:
                         AddPassBtn.Text = "Отменить";
                         AddTaxiBtn.Enabled = false;
                         AddConnBtn.Enabled = false;
-                        TopLabel.Text = "Выберите точку, в которой будет находиться пассажир. Нажмите кнопку \"Отменить\" для отмены.";
+                        TopLabel.Text = "Выберите точку, в которой будет находиться пассажир.";
                         break;
                     case AppStatus.AddingTaxi:
                         AddPassBtn.Enabled = false;
                         AddTaxiBtn.Text = "Отменить";
                         AddConnBtn.Enabled = false;
-                        TopLabel.Text = "Выберите точку, в которой будет стоять такси. Нажмите кнопку \"Отменить\" для отмены.";
+                        TopLabel.Text = "Выберите точку, в которой будет стоять такси.";
                         break;
                 }
 
@@ -62,7 +62,7 @@ namespace NAVYForces
             AddPassBtn.Enabled = true;
             AddTaxiBtn.Enabled = true;
 
-            AddConnBtn.Text = "Добавить связь";
+            AddConnBtn.Text = "Добавить участок пути";
             AddTaxiBtn.Text = "Добавить такси";
             AddPassBtn.Text = "Добавить пассажира";
         }
@@ -125,7 +125,7 @@ namespace NAVYForces
                         if (tmpstatus == -1)
                         {
                             tmpstatus = index;
-                            TopLabel.Text = "Укажите точку назначения пассажира. Нажмите кнопку \"Отменить\" для отмены.";
+                            TopLabel.Text = "Укажите точку (пункт) назначения для пассажира.";
                         }
                         else
                         {
@@ -141,7 +141,7 @@ namespace NAVYForces
                         if (tmpstatus == -1)
                         {
                             tmpstatus = index;
-                            TopLabel.Text = "Укажите вторую точку связи. Нажмите кнопку \"Отменить\" для отмены.";
+                            TopLabel.Text = "Укажите вторую точку связи.";
                             Refresh();
                         }
                         else
